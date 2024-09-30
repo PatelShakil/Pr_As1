@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Increment Counter</title>
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="" />
+    <script
+      type="text/javascript"
+      src="http://code.jquery.com/jquery-1.4.3.min.js"></script>
+  </head>
+  <body>
+    <h3 id="counter">My current count is: 0</h3>
+    <button id="update">Increment Counter</button>
+
+    <script type="text/javascript">
+      var count = 0;
+
+      $("#update").click(function () {
+        count++;
+        $("#counter").text("My current count is: " + count);
+      });
+    </script>
+  </body>
+</html>

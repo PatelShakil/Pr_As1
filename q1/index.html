@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dynamic Quiz</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        height: 90vh;
+        display:flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .quiz-container {
+        text-align: center;
+      }
+      .option {
+        cursor: pointer;
+        margin: 10px 0;
+        padding: 10px;
+        background-color: #f0f0f0;
+      }
+      .option:hover {
+        background-color: #ccc;
+      }
+      .hidden {
+        display: none;
+      }
+      .show {
+        display: block;
+      }
+      button{
+        background-color: black;
+        color: white;
+        padding: 5px;
+        border-radius: 10px;
+        padding-left: 15px;
+        padding-right: 15px;
+        box-shadow: 5px;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="quiz-container">
+      <h2 id="question">Question will appear here</h2>
+      <div id="options">
+        <div class="option" onclick="checkAnswer(this)">Option 1</div>
+        <div class="option" onclick="checkAnswer(this)">Option 2</div>
+        <div class="option" onclick="checkAnswer(this)">Option 3</div>
+        <div class="option" onclick="checkAnswer(this)">Option 4</div>
+      </div>
+      <div id="feedback"></div>
+      <div style="display: flex; justify-content: center; gap: 5px">
+        <button onclick="restartQuiz()" class="hidden" id="restart">
+          Restart Quiz
+        </button>
+        <button onclick="nextQuestion()">Next Question</button>
+      </div>
+      <h3 id="score" class="hidden">Your score: 0</h3>
+    </div>
+
+    <script>
+      const quizData = [
+        {
+          question: "What is the capital of France?",
+          options: ["Berlin", "Madrid", "Paris", "Lisbon"],
+          answer: "Paris",
+        },
+        {
+          question: "Which planet is known as the Red Planet?",
+          options: ["Earth", "Mars", "Jupiter", "Saturn"],
+          answer: "Mars",
+        },
+      ];
+
+      let currentQuestion = 0;
+      let score = 0;
+
+      function loadQuestion() {
+        document.getElementById("question").textContent =
+          quizData[currentQuestion].question;
+        const options = document.querySelectorAll(".option");
+        options.forEach((option, index) => {
+          option.textContent = quizData[currentQuestion].options[index];
+          option.style.backgroundColor = "#f0f0f0";
+        });
+        document.getElementById("feedback").textContent = "";
+      }
+
+      function checkAnswer(element) {
+        if (element.textContent === quizData[currentQuestion].answer) {
+          score++;
+          element.style.backgroundColor = "lightgreen";
+          document.getElementById("feedback").textContent = "Correct!";
+        } else {
+          element.style.backgroundColor = "lightcoral";
+          document.getElementById("feedback").textContent = "Incorrect!";
+        }
+      }
+
+      function nextQuestion() {
+        currentQuestion++;
+        if (currentQuestion < quizData.length) {
+          loadQuestion();
+        } else {
+          document.getElementById("score").textContent = "Your score: " + score;
+          document.getElementById("score").classList.remove("hidden");
+          document.getElementById("options").classList.add("hidden");
+          document.getElementById("question").classList.add("hidden");
+          document.getElementById("feedback").classList.add("hidden");
+          document.getElementById("restart").classList.remove("hidden");
+          document.getElementById("restart").classList.add("show");
+        }
+      }
+      function restartQuiz() {
+        window.location.reload();
+      }
+
+      loadQuestion();
+    </script>
+  </body>
+</html>

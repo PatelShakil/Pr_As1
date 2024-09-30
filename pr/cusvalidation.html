@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Custom Validated Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .error {
+            color: red;
+            font-size: 12px;
+        }
+        form {
+            max-width: 400px;
+            margin: 20px auto;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input, select {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+        }
+        button {
+            padding: 10px;
+            background-color: blue;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:disabled {
+            background-color: gray;
+        }
+    </style>
+</head>
+<body>
+
+    <form id="customForm">
+        <h2>Custom Form</h2>
+
+        <!-- Name Field -->
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name">
+        <span class="error" id="nameError"></span>
+
+        <!-- Email Field -->
+        <label for="email">Email:</label>
+        <input type="text" id="email" name="email">
+        <span class="error" id="emailError"></span>
+
+        <!-- Gender Radio Buttons -->
+        <label>Gender:</label>
+        <input type="radio" id="male" name="gender" value="male">
+        <label for="male">Male</label>
+        <input type="radio" id="female" name="gender" value="female">
+        <label for="female">Female</label>
+        <input type="radio" id="other" name="gender" value="other">
+        <label for="other">Other</label>
+        <span class="error" id="genderError"></span>
+
+        <!-- Date Picker for Date of Birth -->
+        <label for="dob">Date of Birth:</label>
+        <input type="date" id="dob" name="dob">
+        <span class="error" id="dobError"></span>
+
+        <!-- Cascading Address Dropdowns (State, District, Sub-district) -->
+        <label for="state">State:</label>
+        <select id="state" name="state">
+            <option value="">Select State</option>
+            <!-- Example States -->
+            <option value="Gujarat">Gujarat</option>
+            <option value="Maharashtra">Maharashtra</option>
+        </select>
+        <span class="error" id="stateError"></span>
+
+        <label for="district">District:</label>
+        <select id="district" name="district" disabled>
+            <option value="">Select District</option>
+        </select>
+        <span class="error" id="districtError"></span>
+
+        <label for="subdistrict">Sub-district:</label>
+        <select id="subdistrict" name="subdistrict" disabled>
+            <option value="">Select Sub-district</option>
+        </select>
+        <span class="error" id="subdistrictError"></span>
+
+        <button type="button" id="submitButton">Submit</button>
+    </form>
+
+    <script>
+        // Address cascading dropdown logic
+        const stateSelect = document.getElementById('state');
+        const districtSelect = document.getElementById('district');
+        const subDistrictSelect = document.getElementById('subdistrict');
+
+        // Sample data for cascading dropdowns
+        const addressData = {
+            "Gujarat": {
+                "Ahmedabad": ["Sub-district A1", "Sub-district A2"],
+                "Surat": ["Sub-district S1", "Sub-district S2"]
+            },
+            "Maharashtra": {
+                "Mumbai": ["Sub-district M1", "Sub-district M2"],
+                "Pune": ["Sub-district P1", "Sub-district P2"]
+            }
+        };
+
+        // Update districts when state is selected
+        stateSelect.addEventListener('change', function() {
+            districtSelect.innerHTML = '<option value="">Select District</option>';
+            subDistrictSelect.innerHTML = '<option value="">Select Sub-district</option>';
+            districtSelect.disabled = true;
+            subDistrictSelect.disabled = true;
+
+            const state = this.value;
+            if (state && addressData[state]) {
+                for (let district in addressData[state]) {
+                    let option = document.createElement('option');
+                    option.value = district;
+                    option.text = district;
+                    districtSelect.appendChild(option);
+                }
+                districtSelect.disabled = false;
+            }
+        });
+
+        // Update sub-districts when district is selected
+        districtSelect.addEventListener('change', function() {
+            subDistrictSelect.innerHTML = '<option value="">Select Sub-district</option>';
+            subDistrictSelect.disabled = true;
+
+            const state = stateSelect.value;
+            const district = this.value;
+            if (state && district && addressData[state][district]) {
+                addressData[state][district].forEach(subDistrict => {
+                    let option = document.createElement('option');
+                    option.value = subDistrict;
+                    option.text = subDistrict;
+                    subDistrictSelect.appendChild(option);
+                });
+                subDistrictSelect.disabled = false;
+            }
+        });
+
+        // Custom validation functions
+        function validateName() {
+            const name = document.getElementById('name').value.trim();
+            if (name === '' || name.length < 3) {
+                document.getElementById('nameError').innerText = 'Name must be at least 3 characters long.';
+                return false;
+            }
+            document.getElementById('nameError').innerText = '';
+            return true;
+        }
+
+        function validateEmail() {
+            const email = document.getElementById('email').value.trim();
+            const emailPattern = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
+            if (!emailPattern.test(email)) {
+                document.getElementById('emailError').innerText = 'Please enter a valid email address.';
+                return false;
+            }
+            document.getElementById('emailError').innerText = '';
+            return true;
+        }
+
+        function validateGender() {
+            const gender = document.querySelector('input[name="gender"]:checked');
+            if (!gender) {
+                document.getElementById('genderError').innerText = 'Please select a gender.';
+                return false;
+            }
+            document.getElementById('genderError').innerText = '';
+            return true;
+        }
+
+        function validateDOB() {
+            const dob = document.getElementById('dob').value;
+            if (!dob) {
+                document.getElementById('dobError').innerText = 'Please select your date of birth.';
+                return false;
+            }
+            document.getElementById('dobError').innerText = '';
+            return true;
+        }
+
+        function validateAddress() {
+            const state = stateSelect.value;
+            const district = districtSelect.value;
+            const subdistrict = subDistrictSelect.value;
+            
+            if (!state) {
+                document.getElementById('stateError').innerText = 'Please select a state.';
+                return false;
+            }
+            document.getElementById('stateError').innerText = '';
+            
+            if (!district) {
+                document.getElementById('districtError').innerText = 'Please select a district.';
+                return false;
+            }
+            document.getElementById('districtError').innerText = '';
+            
+            if (!subdistrict) {
+                document.getElementById('subdistrictError').innerText = 'Please select a sub-district.';
+                return false;
+            }
+            document.getElementById('subdistrictError').innerText = '';
+            return true;
+        }
+
+        // Form submission with custom validations
+        document.getElementById('submitButton').addEventListener('click', function() {
+            const validName = validateName();
+            const validEmail = validateEmail();
+            const validGender = validateGender();
+            const validDOB = validateDOB();
+            const validAddress = validateAddress();
+
+            if (validName && validEmail && validGender && validDOB && validAddress) {
+                alert('Form submitted successfully!');
+                // Handle form submission (AJAX or form submit)
+            }
+        });
+
+        // Real-time validation for fields
+        document.getElementById('name').addEventListener('input', validateName);
+        document.getElementById('email').addEventListener('input', validateEmail);
+    </script>
+</body>
+</html>

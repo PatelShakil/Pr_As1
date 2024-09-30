@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Q2</title>
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="" />
+  </head>
+  <body>
+    <input id="txtemail" placeholder="Enter Email Address" />
+    <button id="checkEmail" onclick="checkEmail()">Check Email</button>
+
+    <script>
+      function checkEmail() {
+        let str = document.getElementById("txtemail").value;
+        if (str === "") {
+          alert("Please enter Email");
+          return;
+        }
+        if (str.includes("@")) {
+          alert("Email Verified");
+        } else {
+          alert("Please enter valid email address");
+        }
+      }
+    </script>
+  </body>
+</html>

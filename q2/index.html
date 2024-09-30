@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>TODO App</title>
+
+    <style>
+      .card-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding-top: 20px;
+      }
+      .card {
+        box-shadow: 10px;
+        border-radius: 15px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        width: min-content;
+        background-color: beige;
+        padding: 10px;
+      }
+      .btn {
+        padding: 5px;
+        border-radius: 5px;
+        box-shadow: 15px;
+        background-color: rgb(69, 208, 69);
+        color: white;
+        cursor: pointer;
+      }
+      .btn:hover {
+        box-shadow: 0px;
+      }
+      .txt-input {
+        padding: 5px;
+        border-radius: 5px;
+      }
+      li{
+        background-color: azure;
+        border-radius: 5px;
+        padding: 2px;
+        margin:2px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1 style="text-align: center">TODO APP</h1>
+    <div class="card-container">
+      <div class="card">
+        <input class="txt-input" id="txt-input" placeholder="Enter task" />
+        <button class="btn" onclick="onAddTask()">Add Task</button>
+      </div>
+    </div>
+    <div class="card-container">
+      <div class="card" id="tasklist" style="width:max-content"><h3>Task List</h3></div>
+    </div>
+
+    <script>
+      let tasks = [];
+     function onAddTask() {
+      const taskInput = document.getElementById("txt-input");
+      const taskName = taskInput.value;
+      if (taskName) {
+        tasks.push({ name: taskName, completed: false });
+        taskInput.value = "";
+        renderTasks();
+      }
+    }
+
+    function toggleTask(index) {
+      tasks[index].completed = !tasks[index].completed;
+      renderTasks();
+    }
+
+    function deleteTask(index) {
+      tasks.splice(index, 1);
+      renderTasks();
+    }
+
+      function renderTasks() {
+      const taskList = document.getElementById("tasklist");
+      taskList.innerHTML = "<h3>Task List (" + tasks.length + ")</h3>";
+      tasks.forEach((task, index) => {
+        const taskItem = document.createElement("li");
+        taskItem.className = `task ${task.completed ? "completed" : ""}`;
+        taskItem.innerHTML = `
+          ${task.name}<br>
+          <button onclick="toggleTask(${index})">${task.completed ? "Undo" : "Complete"}</button>
+          <button onclick="deleteTask(${index})">Delete</button>
+        `;
+        taskList.appendChild(taskItem);
+      });
+      document.getElementById("taskCount").textContent = tasks.length;
+    }
+    </script>
+  </body>
+</html>

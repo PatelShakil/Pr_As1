@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Increment Counter</title>
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="" />
+    <script
+      type="text/javascript"
+      src="http://code.jquery.com/jquery-1.4.3.min.js"></script>
+
+    <style>
+      .show {
+        display: block;
+      }
+      .hide {
+        display: none;
+      }
+
+      .bg-red {
+        background-color: red;
+        color: white;
+      }
+      .bg-black {
+        background-color: black;
+        color: white;
+        
+      }
+      .p-5{
+        padding:5px;
+      }
+
+      .highlight{
+        border:red solid 1px;
+    
+      }
+      #append{
+        margin: auto;
+      }
+
+    </style>
+  </head>
+  <body>
+    <div >
+        <button id="slide-in">
+            Slide In
+        </button>
+        <button id="slide-down">
+            Slide Down
+        </button>
+        </div>
+
+    <div id="slide" class="show bg-red">
+      <h3>This is Hide Show Container</h3>
+    </div>
+
+    <div id="highlight" class="p-5 bg-black">
+        <p>This is Highlight text</p>
+
+        </div>
+        <br>
+
+    <p id="append" class="p-5 bg-black">
+        append text
+
+        </p>
+
+
+    <script type="text/javascript">
+      $("#slide-in").click(function(){
+        $("#slide").slideUp();
+      })
+      $("#slide-down").click(function(){
+        $("#slide").slideDown();
+      });
+
+      $("#highlight").click(function(){
+        $("#highlight").toggleClass("highlight");
+      });
+
+      
+      $("#append").click(function(){
+        $("#append").append(" new text");
+        // $(this).slideUp("slow");
+        // $("#append").text($("#append").text() + " this is appended text ");
+      });
+
+      $("#append").click(function(){
+        $(this).animate({
+            height:"300px",
+            width:"300px",
+            rotate:"360deg",
+            backgroundColor:"white",
+            border:"5px solid wheat",
+            borderRadius:"15px",
+            
+        })
+      });
+
+
+
+
+    </script>
+  </body>
+</html>

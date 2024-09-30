@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Cascading Selection Box</title>
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="" />
+  </head>
+  <body>
+    <select id="states" onchange="changeDistrict()">
+      <option id="select">Select States</option>
+    </select>
+
+    <select id="districts">
+      <option id="select">Select Districts</option>
+    </select>
+
+    <script>
+      let states = [
+        {
+          state: "Gujarat",
+          districts: ["Bharuch", "Surat"],
+        },
+        {
+          state: "Maharashtra",
+          districts: ["Mumbai","Bandra"],
+        },
+        {
+          state: "Uttar Pradesh",
+          districts: ["Samastipur","Patna"],
+        },
+      ];
+
+      let st = document.getElementById("states");
+
+      st.innerHTML = "<option id='select'>Select States</option>";
+      states.forEach((state, index) => {
+        let elem = `<option value='${state.state}'>${state.state}</option>`;
+        st.innerHTML += elem;
+      });
+
+      function changeDistrict() {
+        let dis = document.getElementById("districts");
+        let selected = document.getElementById("states").value;
+        dis.innerHTML = "<option id='select'>Select Districts</option>";
+        states.forEach((state, index) => {
+          if (state.state === selected) {
+            state.districts.forEach((d, i) => {
+              let elem = `<option value='${d}'>${d}</option>`;
+              dis.innerHTML += elem;
+            });
+          }
+        });
+      }
+    </script>
+  </body>
+</html>

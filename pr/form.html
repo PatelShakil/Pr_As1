@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Form</title>
+    <script
+      type="text/javascript"
+      src="http://code.jquery.com/jquery-1.4.3.min.js"></script>
+
+    <style>
+      body {
+        margin: auto;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 90vh;
+      }
+      .card {
+        box-shadow: 10px;
+        padding: 20px;
+        border-radius: 15px;
+        background-color: wheat;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+      .input {
+        padding: 5px;
+        padding-left: 5px;
+        padding-right: 5px;
+        background-color: #fff;
+        border-radius: 5px;
+      }
+      .btn {
+        background-color: #59679d;
+        padding: 5px;
+        border: 0px;
+        color: white;
+        border-radius: 15px;
+      }
+      .btn:hover {
+        color: #59679d;
+        background-color: white;
+        font-weight: bold;
+      }
+      .btn:click{
+        padding:2px;
+      }
+      .g-col {
+        color: green;
+      }
+      .r-col {
+        color: red;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="card">
+      <label for="email">Email</label>
+      <input
+        class="input"
+        type="email"
+        placeholder="Enter your Email"
+        id="email" />
+      <span id="emsg"></span>
+      <label for="password">Password</label>
+      <input
+        class="input"
+        type="password"
+        placeholder="Enter your password"
+        id="password" />
+      <label for="cpassword">Confirm Password</label>
+      <input
+        class="input"
+        type="password"
+        placeholder="Confirm password"
+        id="cpassword" />
+      <span id="pmsg"></span>
+      <button class="btn" type="submit" onclick="validateForm()">Submit</button>
+    </div>
+    <script>
+      function validateForm() {
+        let email = document.getElementById("email");
+        let password = document.getElementById("password");
+        let cpassword = document.getElementById("cpassword");
+        let emsg = document.getElementById("emsg");
+        let pmsg = document.getElementById("pmsg");
+        if (email.value !== "") {
+          let ptn = /^[^@]+@[^@]+\.[^@]+$/;
+          if (ptn.test(email.value)) {
+            emsg.innerText = "Email is valid";
+            emsg.classList.add("g-col");
+            emsg.classList.remove("r-col");
+          } else {
+            emsg.innerText = "Email is not valid";
+            emsg.classList.add("r-col");
+            emsg.classList.remove("g-col");
+          }
+        } else {
+          emsg.innerText = "Email is required";
+          emsg.classList.add("r-col");
+          emsg.classList.remove("g-col");
+        }
+        if (password.value !== "") {
+          if (password.value === cpassword.value) {
+            pmsg.innerText = "Password is valid";
+            pmsg.classList.add("g-col");
+            pmsg.classList.remove("r-col");
+          } else {
+            pmsg.innerText = "Password not matched";
+            pmsg.classList.add("r-col");
+            pmsg.classList.remove("g-col");
+          }
+        } else {
+          pmsg.innerText = "Password is required";
+          pmsg.classList.add("r-col");
+          pmsg.classList.remove("g-col");
+        }
+      }
+    </script>
+  </body>
+</html>
