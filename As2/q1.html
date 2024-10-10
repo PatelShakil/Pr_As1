@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Form Validation</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  </head>
+  <body>
+    <form id="myForm">
+      <label for="name">Name:</label>
+      <input id="name" name="name" /><br />
+      <p id="ername"></p>
+      <label for="email">Email:</label>
+      <input id="email" name="email" /><br />
+      <p id="eremail"></p>
+
+      <button type="submit">Submit</button>
+    </form>
+
+    <script>
+      $(document).ready(function() {
+          $('#myForm').submit(function(event) {
+              event.preventDefault(); // Prevent form submission
+
+              var name = $('#name').val();
+              var email = $('#email').val();
+              let er = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
+
+              if(name === '') {
+                  // alert('Both fields are required!');
+                  $("#ername").text("Please enter valid name");
+              }else{
+                              $("#ername").text("Name verified");
+
+              }
+
+              if(!er.test(email)) {
+                  // alert('Both fields are required!');
+                  $("#eremail").text("Please enter valid email address");
+              }else{
+                              $("#eremail").text("Email verified!");
+              }
+
+              if(name !== '' && er.test(email)){
+                alert("Form Submitted");
+              }
+
+          });
+      });
+    </script>
+  </body>
+</html>

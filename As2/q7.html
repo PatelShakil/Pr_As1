@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>City Autocomplete</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        #suggestions {
+            border: 1px solid #ccc;
+            overflow-y: auto;
+            display: none;
+            background-color: white;
+        }
+        #suggestions div {
+            padding: 10px;
+            cursor: pointer;
+            background-color: #f0f0f0;
+        }
+        #suggestions div:hover {
+            background-color: #ddd;
+        }
+    </style>
+</head>
+<body>
+
+<h1>City Search</h1>
+<input type="text" id="citySearch" placeholder="Start typing city name..." autocomplete="off">
+<div id="suggestions"></div>
+
+<script>
+$(document).ready(function() {
+    $('#citySearch').on('input', function() {
+        var query = $(this).val();
+        if(query.length >= 3) {
+            $.ajax({
+                url: `http://api.geonames.org/searchJSON?q=${query}&maxRows=5&username=shakil`,
+                method: 'GET',
+                success: function(data) {
+                    $('#suggestions').empty().show();
+                    console.log(data);
+                    data.geonames.forEach(function(city) {
+                        $('#suggestions').append(`<div>${city.name}, ${city.countryName}</div>`);
+                    });
+                }
+            });
+        } else {
+            $('#suggestions').hide();
+        }
+    });
+
+    // Handle click on suggestion
+    $(document).on('click', '#suggestions div', function() {
+        $('#citySearch').val($(this).text());
+        $('#suggestions').hide();
+    });
+});
+</script>
+
+</body>
+</html>

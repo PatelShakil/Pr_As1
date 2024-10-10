@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Load More Posts</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        .post { margin: 10px 0; padding: 10px; border: 1px solid #ddd; }
+    </style>
+</head>
+<body>
+
+<h1>Posts</h1>
+<div id="posts"></div>
+<button id="loadMore">Load More</button>
+
+<script>
+let page = 1;
+
+function loadPosts() {
+    $.ajax({
+        url: `https://jsonplaceholder.typicode.com/posts?_page=${page}`,
+        method: 'GET',
+        success: function(data) {
+            data.forEach(function(post) {
+                $('#posts').append(`<div class="post"><h3>${post.title}</h3><p>${post.body}</p></div>`);
+            });
+            page++;
+        }
+    });
+}
+
+$(document).ready(function() {
+    loadPosts(); // Initial load
+
+    $('#loadMore').click(function() {
+        loadPosts(); // Load more posts
+    });
+});
+</script>
+
+</body>
+</html>

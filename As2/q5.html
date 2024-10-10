@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Client-Side Validation</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        .error { color: red; display: none; }
+    </style>
+</head>
+<body>
+
+<form id="validationForm">
+    <label for="inputField">Enter Text:</label>
+    <input type="text" id="inputField" name="inputField"><br><br>
+    <span class="error" id="error">This field cannot be empty!</span><br><br>
+    
+    <button type="submit">Submit</button>
+</form>
+
+<script>
+$(document).ready(function() {
+    $('#validationForm').submit(function(event) {
+        event.preventDefault();
+        var inputField = $('#inputField').val();
+        
+        if(inputField === '') {
+            $('#error').show();
+        } else {
+            $('#error').hide();
+            alert('Form submitted successfully!');
+        }
+    });
+});
+</script>
+
+</body>
+</html>

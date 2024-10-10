@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Info</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        .weather {
+            background-color: lightblue;
+            padding: 20px;
+            margin: 10px 0;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+
+<h1><a href="https://smuglinks.com">Smuglinks.com</a> Testing API</h1>
+<div id="weather"></div>
+
+<script>
+$(document).ready(function() {
+    const url = `https://api.smuglinks.com/api/common/test`;
+
+    $.ajax({
+        url: url,
+        method: 'GET',
+        success: function(data) {
+            $('#weather').append(`
+                <div class="weather">
+                    <h2>Status : ${data.status}</h2>
+                    <p>Message: ${data.message}</p>
+                    <p>Data: ${data.data}</p>
+                </div>
+            `);
+        },
+        error : function(data) {
+            $('#weather').append(
+                `<div>${data}</div>`
+            )
+        }
+    });
+});
+</script>
+
+</body>
+</html>

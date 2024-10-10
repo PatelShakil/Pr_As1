@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Toggle Div</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+
+<button id="toggleButton">Toggle Div</button>
+<div id="myDiv" style="display:none; margin-top: 20px; background-color: lightblue; padding: 10px;">
+    This is a toggled div!
+</div>
+
+<script>
+$(document).ready(function() {
+    $('#toggleButton').click(function() {
+        $('#myDiv').toggle(); // Toggle visibility
+    });
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Dropdowns</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+
+<label for="states">Select State:</label>
+<select id="states">
+    <option value="">Select State</option>
+    <option value="gujarat">Gujarat</option>
+    <option value="maharashtra">Maharashtra</option>
+</select>
+
+<br><br>
+
+<label for="cities">Select City:</label>
+<select id="cities">
+    <option value="">Select City</option>
+</select>
+
+<script>
+$(document).ready(function() {
+    var citiesByState = {
+        'gujarat': ['Ahmedabad', 'Surat', 'Rajkot'],
+        'maharashtra': ['Mumbai', 'Pune', 'Nagpur']
+    };
+    
+    $('#states').change(function() {
+        var state = $(this).val();
+        var cities = citiesByState[state] || [];
+        
+        $('#cities').empty();
+        $('#cities').append('<option value="">Select City</option>');
+        $.each(cities, function(index, city) {
+            $('#cities').append('<option value="'+city+'">'+city+'</option>');
+        });
+    });
+});
+</script>
+
+</body>
+</html>
