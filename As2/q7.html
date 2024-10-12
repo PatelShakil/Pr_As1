@@ -21,17 +21,45 @@
             background-color: #ddd;
         }
     </style>
+            <link rel="stylesheet" href="dummy.css" >
+
 </head>
 <body>
 
 <h1>City Search</h1>
-<input type="text" id="citySearch" placeholder="Start typing city name..." autocomplete="off">
+<input type="text" id="citySearch" placeholder="Start typing city name..." autocomplete="off" oninput="findcity()">
 <div id="suggestions"></div>
 
 <script>
 $(document).ready(function() {
-    $('#citySearch').on('input', function() {
-        var query = $(this).val();
+    // $('#citySearch').on('input', function() {
+        // var query = $(this).val();
+        // if(query.length >= 3) {
+        //     $.ajax({
+        //         url: `http://api.geonames.org/searchJSON?q=${query}&maxRows=5&username=shakil`,
+        //         method: 'GET',
+        //         success: function(data) {
+        //             $('#suggestions').empty().show();
+        //             console.log(data);
+        //             data.geonames.forEach(function(city) {
+        //                 $('#suggestions').append(`<div>${city.name}, ${city.countryName}</div>`);
+        //             });
+        //         }
+        //     });
+        // } else {
+        //     $('#suggestions').hide();
+        // }
+    // });
+
+   
+    // Handle click on suggestion
+    $(document).on('click', '#suggestions div', function() {
+        $('#citySearch').val($(this).text());
+        $('#suggestions').hide();
+    });
+});
+ function findcity(){
+        var query = $("#citySearch").val();
         if(query.length >= 3) {
             $.ajax({
                 url: `http://api.geonames.org/searchJSON?q=${query}&maxRows=5&username=shakil`,
@@ -47,14 +75,8 @@ $(document).ready(function() {
         } else {
             $('#suggestions').hide();
         }
-    });
+    }
 
-    // Handle click on suggestion
-    $(document).on('click', '#suggestions div', function() {
-        $('#citySearch').val($(this).text());
-        $('#suggestions').hide();
-    });
-});
 </script>
 
 </body>

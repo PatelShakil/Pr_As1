@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AJAX Chat</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+      #chatBox {
+        border: 1px solid #ccc;
+        height: 200px;
+        overflow-y: auto;
+        margin-bottom: 10px;
+      }
+      .message {
+        padding: 5px;
+        background-color: lightgray;
+        margin: 5px;
+        border-radius: 0px 10px 10px 10px;
+      }
+      input{
+        padding: 5px;
+        background-color: rgb(243, 241, 241);
+        border-radius:8px;
+        outline:0;
+        border: 0;
+        padding-left: 10px;
+        padding-right: 10px;
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Real-Time Chat</h1>
+
+    <div id="chatBox"></div>
+    <input type="text" id="messageInput" placeholder="Type your message..." />
+    <button id="sendMessage">Send</button>
+
+    <script>
+      let messages = [];
+      $(document).ready(function () {
+        $("#sendMessage").click(function () {
+          var message = $("#messageInput").val();
+          if (message !== "") {
+            messages.push(message);
+            $("#messageInput").val(""); // Clear input
+            $.ajax({
+              url: "sendMessage.php", // Simulating backend
+              method: "POST",
+              data: { message: message },
+              success: function (response) {
+                $("#chatBox").append(`<div class="message">${response}</div>`);
+                $("#chatBox").scrollTop($("#chatBox")[0].scrollHeight);
+              },
+            });
+          }
+          $("#chatBox").text('');
+          messages.map((message) =>
+            $("#chatBox").append(`<div class="message">${message}</div>`)
+          );
+        });
+
+        // Simulating receiving new messages via AJAX polling
+        // setInterval(function() {
+        //     $.ajax({
+        //         url: 'getMessages.php', // Simulating backend
+        //         method: 'GET',
+        //         success: function(response) {
+        //             $('#chatBox').append(`<div class="message">${response}</div>`);
+        //         }
+        //     });
+        // }, 5000); // Poll every 5 seconds
+        // Simulating receiving new messages via AJAX polling
+        // setInterval(function() {
+
+        //     $.ajax({
+        //         url: 'getMessages.php', // Simulating backend
+        //         method: 'GET',
+        //         success: function(response) {
+        //         }
+        //     });
+        // }, 1000); // Poll every 5 seconds
+      });
+    </script>
+  </body>
+</html>

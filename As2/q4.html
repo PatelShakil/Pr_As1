@@ -6,23 +6,39 @@
     <title>Image Slider</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <style>
+        .slider{
+            width: 100%;
+            display: flex;
+            justify-content: center;
+        }
+        .cont{
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+        }
+        .cont button{
+            width: 100%;
+        }
         .slider img { display: none; }
         .slider img:first-child { display: block; }
     </style>
+        <link rel="stylesheet" href="dummy.css" >
+
 </head>
 <body>
 
 <div class="slider">
-    <img src="https://i.ytimg.com/vi/cVN-5Vlvs8Q/hq720.jpg?sqp=-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLDm50b335r-5kvnmZmRKzgQJ_VyQQ" alt="Image 1" width="300">
-    <img src="https://i.ytimg.com/vi/o6Bur2v-iLo/hqdefault.jpg?sqp=-oaymwEXCOADEI4CSFryq4qpAwkIARUAAIhCGAE=&rs=AOn4CLA34jhkQLoVYEBoLBt9zPnBcoSo2Q" alt="Image 2" width="300">
-    <img src="https://i.ytimg.com/vi/B-sqZroc1iE/hqdefault.jpg?sqp=-oaymwExCOADEI4CSFryq4qpAyMIARUAAIhCGAHwAQH4Af4JgALQBYoCDAgAEAEYYSBFKHIwDw==&rs=AOn4CLA2fMAXANkF53_lF3ferxWpaSuRZg" alt="Image 3" width="300">
+    <img src="https://i.ytimg.com/vi/cVN-5Vlvs8Q/hq720.jpg?sqp=-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLDm50b335r-5kvnmZmRKzgQJ_VyQQ" alt="Image 1" width="80%">
+    <img src="https://i.ytimg.com/vi/o6Bur2v-iLo/hqdefault.jpg?sqp=-oaymwEXCOADEI4CSFryq4qpAwkIARUAAIhCGAE=&rs=AOn4CLA34jhkQLoVYEBoLBt9zPnBcoSo2Q" alt="Image 2" width="80%">
+    <img src="https://i.ytimg.com/vi/B-sqZroc1iE/hqdefault.jpg?sqp=-oaymwExCOADEI4CSFryq4qpAyMIARUAAIhCGAHwAQH4Af4JgALQBYoCDAgAEAEYYSBFKHIwDw==&rs=AOn4CLA2fMAXANkF53_lF3ferxWpaSuRZg" alt="Image 3" width="80%">
 </div>
 
 <br>
 
+<div class="cont">
 <button id="prev">Previous</button>
 <button id="next">Next</button>
-
+</div>
 <script>
 $(document).ready(function() {
     var currentIndex = 0;
