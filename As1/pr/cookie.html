@@ -1,0 +1,184 @@
+<html>
+  <head> </head>
+  <link
+    href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    rel="stylesheet" />
+  <script
+    src="https://code.jquery.com/jquery-3.7.1.min.js"
+    integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+    crossorigin="anonymous"></script>
+  <style>
+    /* body {
+      display: flex;
+      height: 90vh;
+      justify-content: center;
+      align-items: center;
+    } */
+    button:hover {
+      transform: translate(50px, 150px);
+      transform: scale(1.5);
+      transform: rotate(90deg);
+      transform: skew(30deg, 120deg);
+    }
+    img:hover {
+      transform: skew(18deg, 180deg);
+      box-shadow: 30px 30px 30px black;
+    }
+  </style>
+  <body class="container-fluid">
+    <div class="row m-10">
+      <div
+        class="col-md-4 d-flex flex-column align-items-center justify-content-center sm:col-md-12 bg-primary">
+        <button onclick="setCookie()" class="btn btn-success m-2 rounded-lg">
+          Set Cookie
+        </button>
+        <button onclick="getCookie()">Get Cookie</button>
+      </div>
+      <div class="col-md-4 sm:col-md-12 bg-success display-1">
+        <button onclick="setSession()">Set Session</button>
+        <button onclick="getSession()">Get Session</button>
+      </div>
+      <div class="col-md-4 sm:col-md-12 bg-danger">
+        <button onclick="setLocal()">Set Local</button>
+        <button onclick="getLocal()">Get Local</button>
+      </div>
+    </div>
+
+    <p id="p"></p>
+    <button onclick="loadUsers()">Load Users</button>
+    <button onclick="loadUsersJquery()">Load Users Jquery</button>
+    <div class="jumbotron p-5">
+    <table class="table" id="userTable">
+      <thead>
+        <tr>
+          <th scope="col">ID</th>
+          <th scope="col ">Name</th>
+        </tr>
+      </thead>
+    </table>
+</div>
+    <p class="display-4 text-success mark active">Hello this is large text</p>
+
+    <div
+      class="jumbotron d-flex flex-column justify-content-center align-items-center">
+      <h1>Here is a jumbotron</h1>
+      <p class="text-muted">
+        Here is a jumbotron of bootstrap 4.5.2 it really look alike cards in our
+        normal designs.
+      </p>
+      <img
+        src="https://tech-savvy-solution.web.app/assets/logo_home.png"
+        alt="Logo"
+        class="img-fluid" />
+    </div>
+
+    <div class="alert alert-danger">Alert Warning message</div>
+    <button class="btn btn-primary">Primary Button</button>
+    <button class="btn btn-success" onclick="onajax()">Primary Button</button>
+    <button class="btn btn-danger">Primary Button</button>
+
+    <script>
+
+      // prompt("what is your name ?","Shakil");
+      document.addEventListener('contextmenu', function(){
+        console.log("right click");
+        window.close();
+      })
+      document
+        .getElementsByTagName("button")
+        .item(0)
+        .onclick(function () {
+          this.classList.add("btn btn-success display-4");
+        });
+
+      function setSession() {
+        onget();
+        sessionStorage.setItem("username", "abc");
+      }
+
+      function getSession() {
+        document.getElementById("p").textContent =
+          sessionStorage.getItem("username");
+      }
+      function setLocal() {
+        localStorage.setItem("username", "abc");
+      }
+
+      function getLocal() {
+        document.getElementById("p").textContent =
+          localStorage.getItem("username");
+      }
+
+      function setCookie() {
+        document.cookie = "username=hello;max-age=100000;path=/";
+        document.cookie = "name=hello;max-age=100000;path=/";
+        document.cookie = "email=has@gmail.com;max-age=100000;path=/";
+      }
+      function getCookie() {
+        document.getElementById("p").textContent = document.cookie;
+        console.log(document.cookie.split("; "));
+      }
+
+      function onget() {
+        $.get("user.json", function (data) {
+          let ch = `<pre>${data[0].name}</pre>`;
+          $("body").append(ch);
+        });
+      }
+
+      function onajax() {
+        let xhr = new XMLHttpRequest();
+        xhr.open("GET", "user.json", true);
+        xhr.onload = function () {
+          if (xhr.status === 200) {
+            console.log(xhr.responseText);
+          }
+        };
+        xhr.send();
+      }
+
+      function loadUsers() {
+        let table = document.getElementById("usersTable");
+        let xhr = new XMLHttpRequest();
+        xhr.open("GET", "user.json", true);
+        xhr.onload = function () {
+          if (xhr.status == 200) {
+            const users = JSON.parse(xhr.responseText);
+            let table = document.getElementById("userTable");
+            table.innerHTML =
+              "<thead><tr><th>ID</th><th>Name</th></tr></thead><caption>Loaded data using AJAX</caption>";
+            users.forEach((user, index) => {
+              let row = table.insertRow();
+              let id = row.insertCell(0);
+              let name = row.insertCell(1);
+              if (index % 2 === 0) {
+                row.classList.add("table-primary");
+              } else {
+                row.classList.add("table-warning");
+              }
+              id.innerHTML = user.id;
+              name.innerHTML = user.name;
+            });
+          }
+        };
+        xhr.send();
+      }
+
+      function loadUsersJquery() {
+        $.get("user.json", function (data) {
+          $("#userTable").html(
+            "<thead><tr><th>ID<th>Name</th></tr></thead><caption>loaded data using Jquery</caption>"
+          );
+          data.forEach((user, index) => {
+            $("#userTable").append(
+              `<tr id="tbl${user.id}"><td>${user.id}</td><td>${user.name}</td></tr>`
+            );
+            $(`#tbl${user.id}`).addClass(
+              index % 2 ? "table-primary" : "table-danger"
+            );
+          });
+        });
+      }
+    </script>
+  </body>
+</html>
