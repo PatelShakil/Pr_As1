@@ -104,13 +104,13 @@
             });
 
             // Generate question buttons for Assignment 3
-            const assignment3List = document.getElementById('assignment3-list');
-            questions.forEach((question, index) => {
-                const link = document.createElement('a');
-                link.href = `#question${index + 1}`; // Update this URL as needed
-                link.innerText = index +1;
-                assignment3List.appendChild(link);
-            });
+            // const assignment3List = document.getElementById('assignment3-list');
+            // questions.forEach((question, index) => {
+            //     const link = document.createElement('a');
+            //     link.href = `#question${index + 1}`; // Update this URL as needed
+            //     link.innerText = index +1;
+            //     assignment3List.appendChild(link);
+            // });
         };
     </script>
 </head>
@@ -119,10 +119,6 @@
         <div class="assignment" onclick="toggleQuestions('assignment2-list')">
             <div class="assignment-title">Assignment 2</div>
             <div id="assignment2-list" class="question-list"></div>
-        </div>
-        <div class="assignment" onclick="toggleQuestions('assignment3-list')">
-            <div class="assignment-title">Assignment 3</div>
-            <div id="assignment3-list" class="question-list"></div>
         </div>
     </div>
 </body>
