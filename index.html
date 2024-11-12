@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Assignments | M.Shakil Patel</title>
     <style>
-        body {
+         body {
             font-family: Arial, sans-serif;
             margin: 40px;
             background-color: #f7f7f7;
@@ -21,6 +21,10 @@
             padding: 10px;
             border-radius: 8px;
             cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .assignment:hover {
+            background-color: #d0d0d0;
         }
         .assignment-title {
             font-size: 18px;
@@ -32,14 +36,21 @@
         }
         .question-list a {
             display: block;
-            padding: 5px;
+            margin: 5px 0;
+            padding: 8px;
+            border: none;
+            background-color: gainsboro;
+            color: black;
+            border-radius: 5px;
+            text-align: left;
+            cursor: pointer;
+            transition: background-color 0.3s;
             text-decoration: none;
-            box-shadow: 5px;
-            border-radius: 10px;
-            background: gainsboro;
         }
         .question-list a:hover {
-            text-decoration: underline;
+            background-color: #474d5a;
+            color: white;
+
         }
     </style>
     <script>
@@ -52,16 +63,43 @@
             // Data for the assignments
             const questions = [
                 {
-                    "link":"ht"
-                }
+                    "link":"https://patelshakil.github.io/Pr_As1/As2/q1.html"
+                },
+                {
+                    "link":"https://patelshakil.github.io/Pr_As1/As2/q2.html"
+                },
+                {
+                    "link":"https://patelshakil.github.io/Pr_As1/As2/q3.html"
+                },
+                {
+                    "link":"https://patelshakil.github.io/Pr_As1/As2/q4.html"
+                },
+                {
+                    "link":"https://patelshakil.github.io/Pr_As1/As2/q5.html"
+                },
+                {
+                    "link":"https://patelshakil.github.io/Pr_As1/As2/q6.html"
+                },
+                {
+                    "link":"https://patelshakil.github.io/Pr_As1/As2/q7.html"
+                },
+                {
+                    "link":"https://patelshakil.github.io/Pr_As1/As2/q8.html"
+                },
+                {
+                    "link":"https://patelshakil.github.io/Pr_As1/As2/q9.html"
+                },
+                {
+                    "link":"https://patelshakil.github.io/Pr_As1/As2/q10.html"
+                },
             ];
 
             // Generate question buttons for Assignment 2
             const assignment2List = document.getElementById('assignment2-list');
             questions.forEach((question, index) => {
                 const link = document.createElement('a');
-                link.href = `#question${index + 1}`; // Update this URL as needed
-                link.innerText = "Que." + index +1;
+                link.href = question.link; // Update this URL as needed
+                link.innerText = "Que." +( index +1);
                 assignment2List.appendChild(link);
             });
 
@@ -70,7 +108,7 @@
             questions.forEach((question, index) => {
                 const link = document.createElement('a');
                 link.href = `#question${index + 1}`; // Update this URL as needed
-                link.innerText = question;
+                link.innerText = index +1;
                 assignment3List.appendChild(link);
             });
         };
