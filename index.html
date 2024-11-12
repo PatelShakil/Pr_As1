@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assignments | M.Shakil Patel</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            background-color: #f7f7f7;
+            color: #333;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+        }
+        .assignment {
+            background-color: #e0e0e0;
+            margin-bottom: 20px;
+            padding: 10px;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+        .assignment-title {
+            font-size: 18px;
+            font-weight: bold;
+        }
+        .question-list {
+            display: none;
+            margin-top: 10px;
+        }
+        .question-list a {
+            display: block;
+            padding: 5px;
+            text-decoration: none;
+            box-shadow: 5px;
+            border-radius: 10px;
+            background: gainsboro;
+        }
+        .question-list a:hover {
+            text-decoration: underline;
+        }
+    </style>
+    <script>
+        function toggleQuestions(id) {
+            const list = document.getElementById(id);
+            list.style.display = list.style.display === 'none' ? 'block' : 'none';
+        }
+
+        window.onload = function() {
+            // Data for the assignments
+            const questions = [
+                {
+                    "link":"ht"
+                }
+            ];
+
+            // Generate question buttons for Assignment 2
+            const assignment2List = document.getElementById('assignment2-list');
+            questions.forEach((question, index) => {
+                const link = document.createElement('a');
+                link.href = `#question${index + 1}`; // Update this URL as needed
+                link.innerText = "Que." + index +1;
+                assignment2List.appendChild(link);
+            });
+
+            // Generate question buttons for Assignment 3
+            const assignment3List = document.getElementById('assignment3-list');
+            questions.forEach((question, index) => {
+                const link = document.createElement('a');
+                link.href = `#question${index + 1}`; // Update this URL as needed
+                link.innerText = question;
+                assignment3List.appendChild(link);
+            });
+        };
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div class="assignment" onclick="toggleQuestions('assignment2-list')">
+            <div class="assignment-title">Assignment 2</div>
+            <div id="assignment2-list" class="question-list"></div>
+        </div>
+        <div class="assignment" onclick="toggleQuestions('assignment3-list')">
+            <div class="assignment-title">Assignment 3</div>
+            <div id="assignment3-list" class="question-list"></div>
+        </div>
+    </div>
+</body>
+</html>
